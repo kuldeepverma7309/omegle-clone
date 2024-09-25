@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { Socket, io } from "socket.io-client";
@@ -21,8 +22,8 @@ export const Room = ({
     const [remoteVideoTrack, setRemoteVideoTrack] = useState<MediaStreamTrack | null>(null);
     const [remoteAudioTrack, setRemoteAudioTrack] = useState<MediaStreamTrack | null>(null);
     const [remoteMediaStream, setRemoteMediaStream] = useState<MediaStream | null>(null);
-    const remoteVideoRef = useRef<HTMLVideoElement>();
-    const localVideoRef = useRef<HTMLVideoElement>();
+    const remoteVideoRef = useRef<HTMLVideoElement>(null);
+    const localVideoRef = useRef<HTMLVideoElement>(null);
 
     useEffect(() => {
         const socket = io(URL);
@@ -82,7 +83,7 @@ export const Room = ({
             setRemoteMediaStream(stream);
             // trickle ice 
             setReceivingPc(pc);
-            window.pcr = pc;
+            // window.pcr = pc;
             pc.ontrack = (e) => {
                 alert("ontrack");
                 // console.error("inside ontrack");
@@ -199,7 +200,7 @@ export const Room = ({
         }
     }, [localVideoRef])
 
-    return <div>
+    return <div className="flex w-[100vw]">
         Hi {name}
         <video autoPlay width={400} height={400} ref={localVideoRef} />
         {lobby ? "Waiting to connect you to someone" : null}

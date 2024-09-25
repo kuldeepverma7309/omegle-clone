@@ -1,6 +1,8 @@
+import React from "react";
 import { useEffect, useRef, useState } from "react"
 import { Link } from "react-router-dom";
 import { Room } from "./Room";
+import { ModeToggle } from "./mode-toggle";
 
 export const Landing = () => {
     const [name, setName] = useState("");
@@ -36,7 +38,8 @@ export const Landing = () => {
 
     if (!joined) {
             
-    return <div>
+    return <div className="w-[100vw]">
+
             <video autoPlay ref={videoRef}></video>
             <input type="text" onChange={(e) => {
                 setName(e.target.value);
